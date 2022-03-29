@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FireEmblemTTRPG.Domain", "FireEmblemTTRPG.Domain\FireEmblemTTRPG.Domain.csproj", "{C43A8052-EEB6-41F5-B719-CD49A1BE4EAD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FireEmblemTTRPG.Data", "FireEmblemTTRPG.Data\FireEmblemTTRPG.Data.csproj", "{27689185-F4ED-449E-AA83-9236470E233B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FireEmblemTTRPG.WebApp", "FireEmblemTTRPG.WebApp\FireEmblemTTRPG.WebApp.csproj", "{99EAA2DB-8C02-44C5-98B6-02FFB76B49DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C43A8052-EEB6-41F5-B719-CD49A1BE4EAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C43A8052-EEB6-41F5-B719-CD49A1BE4EAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C43A8052-EEB6-41F5-B719-CD49A1BE4EAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C43A8052-EEB6-41F5-B719-CD49A1BE4EAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27689185-F4ED-449E-AA83-9236470E233B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27689185-F4ED-449E-AA83-9236470E233B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27689185-F4ED-449E-AA83-9236470E233B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27689185-F4ED-449E-AA83-9236470E233B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99EAA2DB-8C02-44C5-98B6-02FFB76B49DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99EAA2DB-8C02-44C5-98B6-02FFB76B49DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99EAA2DB-8C02-44C5-98B6-02FFB76B49DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99EAA2DB-8C02-44C5-98B6-02FFB76B49DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {13597A08-8AC1-42F3-89A9-2300A34C04E5}
+	EndGlobalSection
+EndGlobal
