@@ -4,6 +4,9 @@ namespace FireEmblemTTRPG.WebApp.ViewModels
 {
     public class CreateCharacterViewModel
     {
+        public int CharacterId { get; set;}
+        public int ClassId { get; set;}
+        public int WeaponId { get; set;}
         public string Name { get; set; }
         public int Level { get; set; }
         public int Experience { get; set; }
@@ -24,8 +27,8 @@ namespace FireEmblemTTRPG.WebApp.ViewModels
         public int GrowthLck { get; set; }
         public int GrowthDef { get; set; }
         public int GrowthRes { get; set; }
-        public List<Weapon> Weapon { get; set; }
-        public List<Class> Class { get; set; }
+        public List<string> ClassName { get; set; }
+        public List<string> WeaponName { get; set; }
 
     }
 }

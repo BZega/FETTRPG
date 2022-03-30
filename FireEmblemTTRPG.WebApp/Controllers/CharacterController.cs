@@ -10,6 +10,8 @@ using FireEmblemTTRPG.Data;
 using FireEmblemTTRPG.Domain.Entities;
 using System.Data;
 using FireEmblemTTRPG.WebApp.ViewModels;
+using System.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace FireEmblemTTRPG.WebApp.Controllers
 {
@@ -79,31 +81,45 @@ namespace FireEmblemTTRPG.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateCharacterViewModel vm)
         {
-            var character = await _context.Characters.
-                Include(x => x.StatGrowth).Include(x => x.GrowthRate).
-                Include(x => x.Classes).Include(x => x.Weapons).SingleAsync();
+
+            var character = new Character();
+            var stat = new Stat();
+            var growthRate = new GrowthRate();
+            var classes = new Class();
+            var weapon = new Weapon();
+            List<Class> classnames = PopulateClassNames();
+            List<Weapon> weaponnames = PopulateWeaponNames();
+
+            character.Id = vm.CharacterId;    
             character.Name = vm.Name;
             character.Level = vm.Level;
             character.Experience = vm.Experience;
-            character.StatGrowth.HP = vm.StatGrowthHP;
-            character.StatGrowth.Str = vm.StatGrowthStr;
-            character.StatGrowth.Mag = vm.StatGrowthMag;
-            character.StatGrowth.Skl = vm.StatGrowthSkl;
-            character.StatGrowth.Spd = vm.StatGrowthSpd;
-            character.StatGrowth.Lck = vm.StatGrowthLck;
-            character.StatGrowth.Def = vm.StatGrowthDef;
-            character.StatGrowth.Res = vm.StatGrowthRes;
-            character.StatGrowth.Mov = vm.StatGrowthMov;
-            character.GrowthRate.HPGrowthRate = vm.GrowthHP;
-            character.GrowthRate.StrGrowthRate = vm.GrowthStr;
-            character.GrowthRate.MagGrowthRate = vm.GrowthMag;
-            character.GrowthRate.SklGrowthRate = vm.GrowthSkl;
-            character.GrowthRate.SpdGrowthRate = vm.GrowthSpd;
-            character.GrowthRate.LckGrowthRate = vm.GrowthLck;
-            character.GrowthRate.DefGrowthRate = vm.GrowthDef;
-            character.GrowthRate.ResGrowthRate = vm.GrowthRes;
-            character.Classes = vm.Class;
-            character.Weapons = vm.Weapon;
+            stat.HP = vm.StatGrowthHP;
+            stat.Str = vm.StatGrowthStr;
+            stat.Mag = vm.StatGrowthMag;
+            stat.Skl = vm.StatGrowthSkl;
+            stat.Spd = vm.StatGrowthSpd;
+            stat.Lck = vm.StatGrowthLck;
+            stat.Def = vm.StatGrowthDef;
+            stat.Res = vm.StatGrowthRes;
+            stat.Mov = vm.StatGrowthMov;
+            growthRate.HPGrowthRate = vm.GrowthHP;
+            growthRate.StrGrowthRate = vm.GrowthStr;
+            growthRate.MagGrowthRate = vm.GrowthMag;
+            growthRate.SklGrowthRate = vm.GrowthSkl;
+            growthRate.SpdGrowthRate = vm.GrowthSpd;
+            growthRate.LckGrowthRate = vm.GrowthLck;
+            growthRate.DefGrowthRate = vm.GrowthDef;
+            growthRate.ResGrowthRate = vm.GrowthRes;
+
+            character.StatGrowth = stat;
+            character.GrowthRate = growthRate;
+            classes.Id = vm.ClassId;
+            weapon.Id = vm.WeaponId;
+
+            classnames.Add(vm.ClassName());
+
+            
 
 
             try
@@ -122,6 +138,60 @@ namespace FireEmblemTTRPG.WebApp.Controllers
             }
             return RedirectToAction("Index");
             
+        }
+
+        private static List<Class> PopulateClassNames()
+        {
+            string constr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FEDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            List<Class> items = new List<Class>();
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string query = " SELECT Name FROM Class";
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            items.Add(new Class
+                            {
+                                Name = sdr["Name"].ToString(),
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return items;
+        }
+
+        private static List<Weapon> PopulateWeaponNames()
+        {
+            string constr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FEDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            List<Weapon> items = new List<Weapon>();
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string query = " SELECT Name FROM Weapon";
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            items.Add(new Weapon
+                            {
+                                Name = sdr["Name"].ToString(),
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return items;
         }
 
         // GET: Character/Edit/5

@@ -1,5 +1,4 @@
-﻿@model FireEmblemTTRPG.Domain.Entities.Character
-
+﻿@model FireEmblemTTRPG.WebApp.ViewModels.CreateCharacterViewModel
 @{
     ViewData["Title"] = "Create";
 }
@@ -28,106 +27,110 @@
                 <span asp-validation-for="Experience" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StatGrowth.HP" class="control-label"></label>
-                <input asp-for="StatGrowth.HP" class="form-control" value=0/>
-                <span asp-validation-for="StatGrowth.HP" class="text-danger"></span>
+                <label asp-for="StatGrowthHP" class="control-label"></label>
+                <input asp-for="StatGrowthHP" class="form-control" value=0/>
+                <span asp-validation-for="StatGrowthHP" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StatGrowth.Str" class="control-label"></label>
-                <input asp-for="StatGrowth.Str" class="form-control" value=0/>
-                <span asp-validation-for="StatGrowth.Str" class="text-danger"></span>
+                <label asp-for="StatGrowthStr" class="control-label"></label>
+                <input asp-for="StatGrowthStr" class="form-control" value=0/>
+                <span asp-validation-for="StatGrowthStr" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StatGrowth.Mag" class="control-label"></label>
-                <input asp-for="StatGrowth.Mag" class="form-control" value=0/>
-                <span asp-validation-for="StatGrowth.Mag" class="text-danger"></span>
+                <label asp-for="StatGrowthMag" class="control-label"></label>
+                <input asp-for="StatGrowthMag" class="form-control" value=0/>
+                <span asp-validation-for="StatGrowthMag" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StatGrowth.Skl" class="control-label"></label>
-                <input asp-for="StatGrowth.Skl" class="form-control" value=0/>
-                <span asp-validation-for="StatGrowth.Skl" class="text-danger"></span>
+                <label asp-for="StatGrowthSkl" class="control-label"></label>
+                <input asp-for="StatGrowthSkl" class="form-control" value=0/>
+                <span asp-validation-for="StatGrowthSkl" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StatGrowth.Spd" class="control-label"></label>
-                <input asp-for="StatGrowth.Spd" class="form-control" value=0/>
-                <span asp-validation-for="StatGrowth.Spd" class="text-danger"></span>
+                <label asp-for="StatGrowthSpd" class="control-label"></label>
+                <input asp-for="StatGrowthSpd" class="form-control" value=0/>
+                <span asp-validation-for="StatGrowthSpd" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StatGrowth.Lck" class="control-label"></label>
-                <input asp-for="StatGrowth.Lck" class="form-control" value=0/>
-                <span asp-validation-for="StatGrowth.Lck" class="text-danger"></span>
+                <label asp-for="StatGrowthLck" class="control-label"></label>
+                <input asp-for="StatGrowthLck" class="form-control" value=0/>
+                <span asp-validation-for="StatGrowthLck" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StatGrowth.Def" class="control-label"></label>
-                <input asp-for="StatGrowth.Def" class="form-control" value=0/>
-                <span asp-validation-for="StatGrowth.Def" class="text-danger"></span>
+                <label asp-for="StatGrowthDef" class="control-label"></label>
+                <input asp-for="StatGrowthDef" class="form-control" value=0/>
+                <span asp-validation-for="StatGrowthDef" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StatGrowth.Res" class="control-label"></label>
-                <input asp-for="StatGrowth.Res" class="form-control" value=0/>
-                <span asp-validation-for="StatGrowth.Res" class="text-danger"></span>
+                <label asp-for="StatGrowthRes" class="control-label"></label>
+                <input asp-for="StatGrowthRes" class="form-control" value=0/>
+                <span asp-validation-for="StatGrowthRes" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StatGrowth.Mov" class="control-label"></label>
-                <input asp-for="StatGrowth.Mov" class="form-control" value=0/>
-                <span asp-validation-for="StatGrowth.Mov" class="text-danger"></span>
+                <label asp-for="StatGrowthMov" class="control-label"></label>
+                <input asp-for="StatGrowthMov" class="form-control" value=0/>
+                <span asp-validation-for="StatGrowthMov" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GrowthRate.HPGrowthRate" class="control-label">HP Growth</label>
-                <input asp-for="GrowthRate.HPGrowthRate" class="form-control" value=40 />
-                <span asp-validation-for="GrowthRate.HPGrowthRate" class="text-danger"></span>
+                <label asp-for="GrowthHP" class="control-label">HP Growth</label>
+                <input asp-for="GrowthHP" class="form-control" value=40 />
+                <span asp-validation-for="GrowthHP" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GrowthRate.StrGrowthRate" class="control-label">Str Growth</label>
-                <input asp-for="GrowthRate.StrGrowthRate" class="form-control" value=40 />
-                <span asp-validation-for="GrowthRate.StrGrowthRate" class="text-danger"></span>
+                <label asp-for="GrowthStr" class="control-label">Str Growth</label>
+                <input asp-for="GrowthStr" class="form-control" value=40 />
+                <span asp-validation-for="GrowthStr" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GrowthRate.MagGrowthRate" class="control-label">Mag Growth</label>
-                <input asp-for="GrowthRate.MagGrowthRate" class="form-control" value=40 />
-                <span asp-validation-for="GrowthRate.MagGrowthRate" class="text-danger"></span>
+                <label asp-for="GrowthMag" class="control-label">Mag Growth</label>
+                <input asp-for="GrowthMag" class="form-control" value=40 />
+                <span asp-validation-for="GrowthMag" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GrowthRate.SklGrowthRate" class="control-label">Skl Growth</label>
-                <input asp-for="GrowthRate.SklGrowthRate" class="form-control" value=40 />
-                <span asp-validation-for="GrowthRate.SklGrowthRate" class="text-danger"></span>
+                <label asp-for="GrowthSkl" class="control-label">Skl Growth</label>
+                <input asp-for="GrowthSkl" class="form-control" value=40 />
+                <span asp-validation-for="GrowthSkl" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GrowthRate.SpdGrowthRate" class="control-label">Spd Growth</label>
-                <input asp-for="GrowthRate.SpdGrowthRate" class="form-control" value=40 />
-                <span asp-validation-for="GrowthRate.SpdGrowthRate" class="text-danger"></span>
+                <label asp-for="GrowthSpd" class="control-label">Spd Growth</label>
+                <input asp-for="GrowthSpd" class="form-control" value=40 />
+                <span asp-validation-for="GrowthSpd" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GrowthRate.LckGrowthRate" class="control-label">Lck Growth</label>
-                <input asp-for="GrowthRate.LckGrowthRate" class="form-control" value=40 />
-                <span asp-validation-for="GrowthRate.LckGrowthRate" class="text-danger"></span>
+                <label asp-for="GrowthLck" class="control-label">Lck Growth</label>
+                <input asp-for="GrowthLck" class="form-control" value=40 />
+                <span asp-validation-for="GrowthLck" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GrowthRate.DefGrowthRate" class="control-label">Def Growth</label>
-                <input asp-for="GrowthRate.DefGrowthRate" class="form-control" value=40 />
-                <span asp-validation-for="GrowthRate.DefGrowthRate" class="text-danger"></span>
+                <label asp-for="GrowthDef" class="control-label">Def Growth</label>
+                <input asp-for="GrowthDef" class="form-control" value=40 />
+                <span asp-validation-for="GrowthDef" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GrowthRate.ResGrowthRate" class="control-label">Res Growth</label>
-                <input asp-for="GrowthRate.ResGrowthRate" class="form-control" />
-                <span asp-validation-for="GrowthRate.ResGrowthRate" class="text-danger"></span>
+                <label asp-for="GrowthRes" class="control-label">Res Growth</label>
+                <input asp-for="GrowthRes" class="form-control" />
+                <span asp-validation-for="GrowthRes" class="text-danger"></span>
             </div>   
             <div class="form-group">
-                <label asp-for="Classes" class="control-label">Classes</label>
-                <select asp-for="Classes" class="form-control" id="inlineFormCustomSelct">
-                    <option selected>Choose...</option>
-                    <option value=19>Tactician</option>
-                </select>
-                <span asp-validation-for="Classes" class="text-danger"></span>
-            </div>
-              <div class="form-group">
-                <label asp-for="Weapons" class="control-label">Weapons</label>
-                <select asp-for="Weapons" class="form-control" id="inlineFormCustomSelct">
+                <label asp-for="Class" class="control-label">Classes</label>
+                @foreach (var item in Model.ClassName){
+                <label asp-for="ClassName" class="control-label">@item.Name</label>            
+                }
+                </div>
+               @* <input type="checkbox" name="Class" checked class="form-control" id="5" value="5">
+                <input type="checkbox" name="Class" checked class="form-control" id="2" value="2">
+                <input type="checkbox" name="Class" class="form-control" id="@item.Name" value="@item.Name" checked />
+               <label asp-for="ClassName" class="contro-label">@item.Name</label>
+                
+            
+             @* <div class="form-group">
+                <label asp-for="Weapon" class="control-label">Weapons</label>
+                <select asp-for="Weapon" class="form-control" id="inlineFormCustomSelct">
                     <option selected>Choose...</option>
                     <option value=5>Bronze Sword</option>
                 </select>
-                <span asp-validation-for="Weapons" class="text-danger"></span>
-            </div>
+                <span asp-validation-for="Weapon" class="text-danger"></span>
+            </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
