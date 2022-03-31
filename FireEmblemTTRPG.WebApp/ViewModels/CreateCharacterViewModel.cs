@@ -27,6 +27,8 @@ namespace FireEmblemTTRPG.WebApp.ViewModels
         public int GrowthRes { get; set; }
         public List<ClassCheckSelect> ClassNames { get; set; }
         public List<WeaponCheckSelect> WeaponNames { get; set; }
+        public List<int> SelectedClasses { get; set; }
+        public List<int> SelectedWeapons { get; set; }
 
     }
 }

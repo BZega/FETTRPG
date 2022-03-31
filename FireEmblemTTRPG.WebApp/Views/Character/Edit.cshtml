@@ -1,5 +1,4 @@
-﻿@model FireEmblemTTRPG.Domain.Entities.Character
-
+﻿@model FireEmblemTTRPG.WebApp.ViewModels.EditViewModel
 @{
     ViewData["Title"] = "Edit";
 }
@@ -15,8 +14,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Name" class="form-control">@Model.Name</label>
             </div>
             <div class="form-group">
                 <label asp-for="Level" class="control-label"></label>
@@ -29,20 +27,49 @@
                 <span asp-validation-for="Experience" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Classes" class="control-label">Classes</label>
-                <select asp-for="Classes" class="form-control" id="inlineFormCustomSelct">
-                    <option selected value=1>Choose...</option>
-                    <option value=19>Tactician</option>
-                </select>
-                <span asp-validation-for="Classes" class="text-danger"></span>
+                <label asp-for="StatGrowthHP" class="control-label"></label>
+                <input asp-for="StatGrowthHP" class="form-control" />
+                <span asp-validation-for="StatGrowthHP" class="text-danger"></span>
             </div>
-              <div class="form-group">
-                <label asp-for="Weapons" class="control-label">Weapons</label>
-                <select asp-for="Weapons" class="form-control" id="inlineFormCustomSelct">
-                    <option selected value=1>Choose...</option>
-                    <option value=5>Bronze Sword</option>
-                </select>
-                <span asp-validation-for="Weapons" class="text-danger"></span>
+             <div class="form-group">
+                <label asp-for="StatGrowthStr" class="control-label"></label>
+                <input asp-for="StatGrowthStr" class="form-control" />
+                <span asp-validation-for="StatGrowthStr" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="StatGrowthMag" class="control-label"></label>
+                <input asp-for="StatGrowthMag" class="form-control" />
+                <span asp-validation-for="StatGrowthMag" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="StatGrowthSkl" class="control-label"></label>
+                <input asp-for="StatGrowthSkl" class="form-control" />
+                <span asp-validation-for="StatGrowthSkl" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="StatGrowthSpd" class="control-label"></label>
+                <input asp-for="StatGrowthSpd" class="form-control" />
+                <span asp-validation-for="StatGrowthSpd" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="StatGrowthLck" class="control-label"></label>
+                <input asp-for="StatGrowthLck" class="form-control" />
+                <span asp-validation-for="StatGrowthLck" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="StatGrowthDef" class="control-label"></label>
+                <input asp-for="StatGrowthDef" class="form-control" />
+                <span asp-validation-for="StatGrowthDef" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="StatGrowthRes" class="control-label"></label>
+                <input asp-for="StatGrowthRes" class="form-control" />
+                <span asp-validation-for="StatGrowthRes" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="StatGrowthMov" class="control-label"></label>
+                <input asp-for="StatGrowthMov" class="form-control" />
+                <span asp-validation-for="StatGrowthMov" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

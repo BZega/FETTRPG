@@ -27,15 +27,15 @@ namespace FireEmblemTTRPG.WebApp.Controllers
         // GET: Character
         public async Task<IActionResult> Index()
         {
-    
+
             return View(await _context.Characters
-                .Include(x=>x.StatGrowth)
-                .Include(x=>x.GrowthRate)
-                .Include(x=>x.Classes)
-                    .ThenInclude(x=>x.BaseStat)
+                .Include(x => x.StatGrowth)
+                .Include(x => x.GrowthRate)
+                .Include(x => x.Classes)
+                    .ThenInclude(x => x.BaseStat)
                 .Include(x => x.Classes)
                     .ThenInclude(x => x.MaxStat)
-                .Include(x=>x.Weapons)
+                .Include(x => x.Weapons)
                 .AsNoTracking()
                 .ToListAsync());
         }
@@ -60,6 +60,7 @@ namespace FireEmblemTTRPG.WebApp.Controllers
                         .ThenInclude(x => x.StatGrowth)
                 .Include(x => x.Weapons)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (character == null)
             {
                 return NotFound();
@@ -72,8 +73,8 @@ namespace FireEmblemTTRPG.WebApp.Controllers
         public IActionResult Create()
         {
             CreateCharacterViewModel model = new CreateCharacterViewModel();
-            model.ClassNames = GetClasses().Select<Class, ClassCheckSelect>(x =>new ClassCheckSelect() { Name = x.Name, ClassId = x.Id}).ToList();
-            model.WeaponNames = GetWeapons().Select<Weapon, WeaponCheckSelect>(x => new WeaponCheckSelect() { Name = x.Name, WeaponId = x.Id}).ToList();
+            model.ClassNames = GetClasses().Select<Class, ClassCheckSelect>(x => new ClassCheckSelect() { Name = x.Name, ClassId = x.Id }).ToList();
+            model.WeaponNames = GetWeapons().Select<Weapon, WeaponCheckSelect>(x => new WeaponCheckSelect() { Name = x.Name, WeaponId = x.Id }).ToList();
             return View(model);
         }
 
@@ -93,7 +94,7 @@ namespace FireEmblemTTRPG.WebApp.Controllers
 
             //var classes = new List<Class>();
             //var weapons = new List<Weapon>();
-            
+
             character.Name = vm.Name;
             character.Level = vm.Level;
             character.Experience = vm.Experience;
@@ -118,8 +119,8 @@ namespace FireEmblemTTRPG.WebApp.Controllers
             character.StatGrowth = stat;
             character.GrowthRate = growthRate;
 
-            character.Classes = vm.ClassNames.Select<ClassCheckSelect,Class>(x=>classnames.FirstOrDefault(y=>y.Id==x.ClassId)).ToList();
-            character.Weapons = vm.WeaponNames.Select<WeaponCheckSelect, Weapon>(x => weaponnames.FirstOrDefault(y => y.Id == x.WeaponId)).ToList();
+            character.Classes = vm.SelectedClasses.Select<int, Class>(x => classnames.FirstOrDefault(y => y.Id == x)).ToList();
+            character.Weapons = vm.SelectedWeapons.Select<int, Weapon>(x => weaponnames.FirstOrDefault(y => y.Id == x)).ToList();
 
 
 
@@ -138,7 +139,7 @@ namespace FireEmblemTTRPG.WebApp.Controllers
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
             return RedirectToAction("Index");
-            
+
         }
 
         private List<Class> GetClasses()
@@ -151,6 +152,7 @@ namespace FireEmblemTTRPG.WebApp.Controllers
             return _context.Weapons.ToList();
         }
 
+
         // GET: Character/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -159,13 +161,33 @@ namespace FireEmblemTTRPG.WebApp.Controllers
                 return NotFound();
             }
 
-            var character = await _context.Characters.FindAsync(id);
+            var character = await _context.Characters
+                                  .Include(x => x.StatGrowth)
+                                  .FirstOrDefaultAsync(x => x.Id == id);
 
             if (character == null)
             {
                 return NotFound();
             }
-            return View(character);
+
+
+            var editVM = new EditViewModel
+            {
+                Id = character.Id,
+                Name = character.Name,
+                Level = character.Level,
+                Experience = character.Experience,
+                StatGrowthHP = character.StatGrowth.HP,
+                StatGrowthStr = character.StatGrowth.Str,
+                StatGrowthMag = character.StatGrowth.Mag,
+                StatGrowthSkl = character.StatGrowth.Skl,
+                StatGrowthSpd = character.StatGrowth.Spd,
+                StatGrowthLck = character.StatGrowth.Lck,
+                StatGrowthDef = character.StatGrowth.Def,
+                StatGrowthRes = character.StatGrowth.Res,
+                StatGrowthMov = character.StatGrowth.Mov
+            };
+            return View(editVM);
         }
 
         // POST: Character/Edit/5
@@ -173,34 +195,49 @@ namespace FireEmblemTTRPG.WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Level,Experience,StatGrowth_HP,StatGrowth_Str,StatGrowth_Mag,StatGrowth_Skl,StatGrowth_Spd,StatGrowth_Lck,StatGrowth_Def,StatGrowth_Res,StatGrowth_Mov,GrowthRate_HPGrowthRate,GrowthRate_StrGrowthRate,GrowthRate_MagGrowthRate,GrowthRate_SklGrowthRate,GrowthRate_SpdGrowthRate,GrowthRate_LckGrowthRate,GrowthRate_DefGrowthRate,GrowthRate_ResGrowthRate,ClassId,WeaponId")] Character character)
+        public async Task<IActionResult> Edit(int id, EditViewModel editVM)
         {
-            if (id != character.Id)
+
+            if (ModelState.IsValid == false)
             {
-                return NotFound();
+                return View(editVM);
             }
 
-            if (ModelState.IsValid)
+            var character = await _context.Characters
+                                  .Include(x => x.StatGrowth)
+                                  .FirstOrDefaultAsync(x => x.Id == id);
+            character.Level = editVM.Level;
+            character.Experience = editVM.Experience;
+            character.StatGrowth.HP = editVM.StatGrowthHP;
+            character.StatGrowth.Str = editVM.StatGrowthStr;
+            character.StatGrowth.Mag = editVM.StatGrowthMag;
+            character.StatGrowth.Skl = editVM.StatGrowthSkl;
+            character.StatGrowth.Spd = editVM.StatGrowthSpd;
+            character.StatGrowth.Lck = editVM.StatGrowthLck;
+            character.StatGrowth.Def = editVM.StatGrowthDef;
+            character.StatGrowth.Res = editVM.StatGrowthRes;
+            character.StatGrowth.Mov = editVM.StatGrowthMov;
+
+
+            try
             {
-                try
-                {
-                    _context.Update(character);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CharacterExists(character.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(character);
+                await _context.SaveChangesAsync();
             }
-            return View(character);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CharacterExists(character.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+
+
         }
 
         // GET: Character/Delete/5
