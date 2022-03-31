@@ -118,7 +118,8 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox"
-                               name="ClassNames"
+                               name="@item.Name"
+                               id="@item.ClassId"
                                asp-for="@item.isSelected"
                                value="@item.ClassId"
                                /> @item.Name
