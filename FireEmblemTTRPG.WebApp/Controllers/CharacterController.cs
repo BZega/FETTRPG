@@ -71,7 +71,10 @@ namespace FireEmblemTTRPG.WebApp.Controllers
         // GET: Character/Create
         public IActionResult Create()
         {
-            return View();
+            CreateCharacterViewModel model = new CreateCharacterViewModel();
+            model.ClassNames = GetClasses().Select<Class, ClassCheckSelect>(x =>new ClassCheckSelect() { Name = x.Name, ClassId = x.Id}).ToList();
+            model.WeaponNames = GetWeapons().Select<Weapon, WeaponCheckSelect>(x => new WeaponCheckSelect() { Name = x.Name, WeaponId = x.Id}).ToList();
+            return View(model);
         }
 
         // POST: Character/Create
@@ -85,12 +88,12 @@ namespace FireEmblemTTRPG.WebApp.Controllers
             var character = new Character();
             var stat = new Stat();
             var growthRate = new GrowthRate();
-            var classes = new Class();
-            var weapon = new Weapon();
-            List<Class> classnames = PopulateClassNames();
-            List<Weapon> weaponnames = PopulateWeaponNames();
+            List<Class> classnames = GetClasses();
+            List<Weapon> weaponnames = GetWeapons();
 
-            character.Id = vm.CharacterId;    
+            //var classes = new List<Class>();
+            //var weapons = new List<Weapon>();
+            
             character.Name = vm.Name;
             character.Level = vm.Level;
             character.Experience = vm.Experience;
@@ -114,12 +117,10 @@ namespace FireEmblemTTRPG.WebApp.Controllers
 
             character.StatGrowth = stat;
             character.GrowthRate = growthRate;
-            classes.Id = vm.ClassId;
-            weapon.Id = vm.WeaponId;
 
-            classnames.Add(vm.ClassName());
+            character.Classes = vm.ClassNames.Select<ClassCheckSelect,Class>(x=>classnames.FirstOrDefault(y=>y.Id==x.ClassId)).ToList();
+            character.Weapons = vm.WeaponNames.Select<WeaponCheckSelect, Weapon>(x => weaponnames.FirstOrDefault(y => y.Id == x.WeaponId)).ToList();
 
-            
 
 
             try
@@ -140,58 +141,14 @@ namespace FireEmblemTTRPG.WebApp.Controllers
             
         }
 
-        private static List<Class> PopulateClassNames()
+        private List<Class> GetClasses()
         {
-            string constr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FEDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            List<Class> items = new List<Class>();
-            using (SqlConnection con = new SqlConnection(constr))
-            {
-                string query = " SELECT Name FROM Class";
-                using (SqlCommand cmd = new SqlCommand(query))
-                {
-                    cmd.Connection = con;
-                    con.Open();
-                    using (SqlDataReader sdr = cmd.ExecuteReader())
-                    {
-                        while (sdr.Read())
-                        {
-                            items.Add(new Class
-                            {
-                                Name = sdr["Name"].ToString(),
-                            });
-                        }
-                    }
-                    con.Close();
-                }
-            }
-            return items;
+            return _context.Classes.ToList();
         }
 
-        private static List<Weapon> PopulateWeaponNames()
+        private List<Weapon> GetWeapons()
         {
-            string constr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FEDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            List<Weapon> items = new List<Weapon>();
-            using (SqlConnection con = new SqlConnection(constr))
-            {
-                string query = " SELECT Name FROM Weapon";
-                using (SqlCommand cmd = new SqlCommand(query))
-                {
-                    cmd.Connection = con;
-                    con.Open();
-                    using (SqlDataReader sdr = cmd.ExecuteReader())
-                    {
-                        while (sdr.Read())
-                        {
-                            items.Add(new Weapon
-                            {
-                                Name = sdr["Name"].ToString(),
-                            });
-                        }
-                    }
-                    con.Close();
-                }
-            }
-            return items;
+            return _context.Weapons.ToList();
         }
 
         // GET: Character/Edit/5

@@ -16,8 +16,8 @@ namespace FireEmblemTTRPG.Domain.Entities
         public Stat MaxStat { get; set; }
         public GrowthRate GrowthRate { get; set; }
         public WeaponType WeaponType { get; set; }
-        public WeaponType WeaponType2 { get; set; }
-        public WeaponType WeaponType3 { get; set; }
+        public WeaponType? WeaponType2 { get; set; }
+        public WeaponType? WeaponType3 { get; set; }
         public List<Character> Characters { get; set; } = new List<Character>();
 
     }
